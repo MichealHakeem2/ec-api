@@ -98,6 +98,9 @@ class UserController extends Controller
             $user = Auth::user();
 
             $token = $user->createToken('customer-token')->plainTextToken;
+            $personalAccessToken = $user->tokens()->latest()->first();
+            $expiresAt = Carbon::now()->addMinutes(120);
+            $personalAccessToken->update(['expires_at' => $expiresAt]);
 
 
 
